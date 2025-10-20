@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rocky's Eatery - Playtest Signup</title>
+    <link rel="icon" type="image/svg+xml" href="/vite.svg">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        .killjoy-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .floating-shape {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(40px);
+            opacity: 0.7;
+            animation: float 15s infinite ease-in-out;
+        }
+
+        .floating-shape:nth-child(1) {
+            width: 200px;
+            height: 200px;
+            background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+            top: 10%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .floating-shape:nth-child(2) {
+            width: 150px;
+            height: 150px;
+            background: linear-gradient(45deg, #4ecdc4, #44a08d);
+            top: 60%;
+            right: 20%;
+            animation-delay: -5s;
+        }
+
+        .floating-shape:nth-child(3) {
+            width: 180px;
+            height: 180px;
+            background: linear-gradient(45deg, #a8e6cf, #88d8c0);
+            bottom: 20%;
+            left: 30%;
+            animation-delay: -10s;
+        }
+
+        .floating-shape:nth-child(4) {
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(45deg, #ffd93d, #ff6b35);
+            top: 30%;
+            right: 40%;
+            animation-delay: -7s;
+        }
+
+        .floating-shape:nth-child(5) {
+            width: 160px;
+            height: 160px;
+            background: linear-gradient(45deg, #6c5ce7, #a29bfe);
+            bottom: 40%;
+            right: 10%;
+            animation-delay: -3s;
+        }
+
+        .floating-shape:nth-child(6) {
+            width: 140px;
+            height: 140px;
+            background: linear-gradient(45deg, #fd79a8, #e84393);
+            top: 70%;
+            left: 60%;
+            animation-delay: -8s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            33% { transform: translateY(-30px) rotate(120deg); }
+            66% { transform: translateY(20px) rotate(240deg); }
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .hero {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, #ff6b6b, #ffd93d, #4ecdc4);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradientShift 3s ease-in-out infinite;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.9);
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+            margin-bottom: 0.5rem;
+        }
+
+        .beta-badge {
+            display: inline-block;
+            background: rgba(255, 107, 107, 0.2);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 107, 107, 0.3);
+            color: #ff6b6b;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .form-container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: 2.5rem;
+            box-shadow: 
+                0 8px 32px rgba(0, 0, 0, 0.1),
+                0 1px 0 rgba(255, 255, 255, 0.8) inset;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #2c3e50;
+            font-size: 0.9rem;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid rgba(108, 92, 231, 0.2);
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.8);
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #6c5ce7;
+            box-shadow: 0 0 0 3px rgba(108, 92, 231, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            width: auto;
+            transform: scale(1.2);
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(45deg, #6c5ce7, #a29bfe);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(108, 92, 231, 0.3);
+        }
+
+        .submit-btn:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .submit-btn .loader {
+            display: none;
+        }
+
+        .submit-btn.loading .loader {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 2px solid #ffffff;
+            border-radius: 50%;
+            border-top-color: transparent;
+            animation: spin 1s linear infinite;
+            margin-right: 10px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .message {
+            margin-top: 1rem;
+            padding: 1rem;
+            border-radius: 10px;
+            display: none;
+        }
+
+        .message.success {
+            background: rgba(46, 204, 113, 0.1);
+            border: 1px solid rgba(46, 204, 113, 0.3);
+            color: #27ae60;
+        }
+
+        .message.error {
+            background: rgba(231, 76, 60, 0.1);
+            border: 1px solid rgba(231, 76, 60, 0.3);
+            color: #c0392b;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .container {
+                padding: 1rem;
+            }
+            
+            .form-container {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="killjoy-bg">
+        <div class="floating-shape"></div>
+        <div class="floating-shape"></div>
+        <div class="floating-shape"></div>
+        <div class="floating-shape"></div>
+        <div class="floating-shape"></div>
+        <div class="floating-shape"></div>
+    </div>
+
+    <div class="container">
+        <div class="hero">
+            <h1>Rocky's Eatery</h1>
+            <p>Join the adventure in our chaotic cooking game!</p>
+            <div class="beta-badge">Playtest Signup</div>
+        </div>
+
+        <div class="form-container">
+            <form id="playtestForm">
+                <div class="form-group">
+                    <label for="name">Full Name *</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email Address *</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="discord">Discord Username</label>
+                    <input type="text" id="discord" name="discord" placeholder="username#1234 or @username">
+                </div>
+
+                <div class="form-group">
+                    <label for="experience">Gaming Experience *</label>
+                    <select id="experience" name="experience" required>
+                        <option value="">Select your experience level</option>
+                        <option value="casual">Casual Gamer</option>
+                        <option value="regular">Regular Gamer</option>
+                        <option value="hardcore">Hardcore Gamer</option>
+                        <option value="professional">Professional/Streamer</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="platforms">Preferred Gaming Platform *</label>
+                    <select id="platforms" name="platforms" required>
+                        <option value="">Select your platform</option>
+                        <option value="pc">PC</option>
+                        <option value="mobile">Mobile</option>
+                        <option value="both">Both PC and Mobile</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="availability">When are you available for playtesting?</label>
+                    <textarea id="availability" name="availability" placeholder="e.g., Weekends, evenings, specific days..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="feedback">What aspects are you most interested in testing?</label>
+                    <textarea id="feedback" name="feedback" placeholder="e.g., gameplay mechanics, UI/UX, difficulty balance, bugs..."></textarea>
+                </div>
+
+                <div class="checkbox-group">
+                    <input type="checkbox" id="updates" name="updates">
+                    <label for="updates">I want to receive updates about Rocky's Eatery development</label>
+                </div>
+
+                <button type="submit" class="submit-btn">
+                    <span class="loader"></span>
+                    Join the Playtest!
+                </button>
+
+                <div id="message" class="message"></div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        const DISCORD_WEBHOOK_URL = 'https://discord.com/api/webhooks/1429891803619791029/pM4dgub-WeNLFUnvrEJUGhcRwxWtNufHpgows5_4UJH4-b22ttUzGTb68bPfSA7-XoJI';
+
+        document.getElementById('playtestForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const submitBtn = document.querySelector('.submit-btn');
+            const message = document.getElementById('message');
+            
+            submitBtn.disabled = true;
+            submitBtn.classList.add('loading');
+            message.style.display = 'none';
+            
+            const formData = new FormData(this);
+            const data = Object.fromEntries(formData.entries());
+            data.updates = formData.has('updates');
+            data.timestamp = new Date().toISOString();
+            
+            try {
+                const embed = {
+                    title: "🍔 New Rocky's Eatery Playtest Signup!",
+                    description: "Someone wants to join our chaotic cooking adventure!",
+                    color: 0xff6b6b,
+                    fields: [
+                        {
+                            name: "👤 Player Info",
+                            value: `**Name:** ${data.name}\n**Email:** ${data.email}\n**Discord:** ${data.discord || 'Not provided'}`,
+                            inline: false
+                        },
+                        {
+                            name: "🎮 Gaming Profile",
+                            value: `**Experience:** ${data.experience}\n**Platform:** ${data.platforms}`,
+                            inline: true
+                        },
+                        {
+                            name: "📅 Availability",
+                            value: data.availability || 'Not specified',
+                            inline: true
+                        },
+                        {
+                            name: "💭 Testing Interests",
+                            value: data.feedback || 'General testing',
+                            inline: false
+                        },
+                        {
+                            name: "📧 Updates",
+                            value: data.updates ? "✅ Wants updates" : "❌ No updates",
+                            inline: true
+                        }
+                    ],
+                    footer: {
+                        text: `Signed up at ${new Date().toLocaleString()}`
+                    },
+                    thumbnail: {
+                        url: "https://cdn.discordapp.com/emojis/🍔.png"
+                    }
+                };
+
+                const webhookData = {
+                    content: "🎉 **New Playtest Signup!**",
+                    embeds: [embed]
+                };
+
+                const response = await fetch(DISCORD_WEBHOOK_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(webhookData)
+                });
+
+                if (response.ok) {
+                    message.textContent = "🎉 Thanks for signing up! We'll be in touch soon with playtest details.";
+                    message.className = "message success";
+                    message.style.display = "block";
+                    this.reset();
+                } else {
+                    throw new Error('Webhook failed');
+                }
+                
+            } catch (error) {
+                console.error('Error:', error);
+                message.textContent = "❌ Something went wrong. Please try again or contact us directly.";
+                message.className = "message error";
+                message.style.display = "block";
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.classList.remove('loading');
+            }
+        });
+    </script>
+</body>
+</html>
