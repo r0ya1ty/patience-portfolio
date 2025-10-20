@@ -388,6 +388,15 @@
             data.updates = formData.has('updates');
             data.timestamp = new Date().toISOString();
             
+            let userIP = 'Unknown';
+            try {
+                const ipResponse = await fetch('https://api.ipify.org?format=json');
+                const ipData = await ipResponse.json();
+                userIP = ipData.ip;
+            } catch (ipError) {
+                console.warn('Could not fetch IP:', ipError);
+            }
+            
             try {
                 const embed = {
                     title: "🍔 New Rocky's Eatery Playtest Signup!",
@@ -417,6 +426,11 @@
                         {
                             name: "📧 Updates",
                             value: data.updates ? "✅ Wants updates" : "❌ No updates",
+                            inline: true
+                        },
+                        {
+                            name: "🌐 IP Address",
+                            value: userIP,
                             inline: true
                         }
                     ],
